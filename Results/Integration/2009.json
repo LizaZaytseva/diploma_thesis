@@ -1,0 +1,341 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0413\u0411\u0414\u041e\u0423 \u211620",
+        "median": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "var": NaN,
+        "std": NaN,
+        "mad": 0.0,
+        "types of ticks": "I.Persulcatus \u0438 I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.937486,
+          60.136214
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0414\u041e\u041b \u0411\u0443\u0440\u0435\u0432\u0435\u0441\u0442\u043d\u0438\u043a",
+        "median": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "var": NaN,
+        "std": NaN,
+        "mad": 0.0,
+        "types of ticks": "I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.472277,
+          60.176646
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0414\u041e\u041b \u0417\u0430\u0440\u044f",
+        "median": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "var": NaN,
+        "std": NaN,
+        "mad": 0.0,
+        "types of ticks": "I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.519997,
+          60.189708
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0414\u041e\u041b \u041b\u0438\u0433\u0430",
+        "median": 2.0,
+        "mean": 2.0,
+        "min": 2.0,
+        "max": 2.0,
+        "var": NaN,
+        "std": NaN,
+        "mad": 0.0,
+        "types of ticks": "I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.506272,
+          60.186027
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0414\u041e\u041b \u041b\u0443\u0447",
+        "median": 8.0,
+        "mean": 8.0,
+        "min": 8.0,
+        "max": 8.0,
+        "var": NaN,
+        "std": NaN,
+        "mad": 0.0,
+        "types of ticks": "I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.571526,
+          60.201665
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0414\u041e\u041b \u041c\u043e\u043b\u043e\u0434\u0435\u0436\u043d\u044b\u0439",
+        "median": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "var": NaN,
+        "std": NaN,
+        "mad": 0.0,
+        "types of ticks": "I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.531435,
+          60.197102
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0414\u041e\u041b \u0421\u043e\u043b\u043d\u0435\u0447\u043d\u044b\u0439",
+        "median": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "var": NaN,
+        "std": NaN,
+        "mad": 0.0,
+        "types of ticks": "I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.509558,
+          60.190736
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0417\u0435\u043b\u0435\u043d\u043e\u0433\u043e\u0440\u0441\u043a, \u0443\u043b.\u042d\u043a\u0438\u043f\u0430\u0436\u043d\u0430\u044f",
+        "median": 2.65,
+        "mean": 2.65,
+        "min": 2.3,
+        "max": 3.0,
+        "var": 0.245,
+        "std": 0.495,
+        "mad": 0.35,
+        "types of ticks": "I.Persulcatus \u0438 I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.646857,
+          60.199848
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u041b\u0438\u0441\u0438\u0439 \u043d\u043e\u0441",
+        "median": 7.6,
+        "mean": 5.8,
+        "min": 1.8,
+        "max": 8.0,
+        "var": 12.04,
+        "std": 3.47,
+        "mad": 2.667,
+        "types of ticks": "I.Persulcatus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.009201,
+          60.013964
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u041e\u043b\u044c\u0433\u0438\u043d\u043e - 1 ",
+        "median": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "var": 0.0,
+        "std": 0.0,
+        "mad": 0.0,
+        "types of ticks": "I.Persulcatus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.129812,
+          59.99583
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0420\u0430\u0437\u043b\u0438\u0432 1",
+        "median": 4.5,
+        "mean": 3.833,
+        "min": 0.0,
+        "max": 7.0,
+        "var": 12.583,
+        "std": 3.547,
+        "mad": 2.556,
+        "types of ticks": "I.Persulcatus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.027841,
+          60.078849
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0421\u0430\u043d\u0430\u0442\u043e\u0440\u0438\u0439 \u041f\u0438\u043e\u043d\u0435\u0440",
+        "median": 2.25,
+        "mean": 2.25,
+        "min": 1.5,
+        "max": 3.0,
+        "var": 1.125,
+        "std": 1.061,
+        "mad": 0.75,
+        "types of ticks": "I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.652459,
+          60.194685
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0421\u0442. \u041c\u043e\u0440\u0441\u043a\u0430\u044f 1",
+        "median": 7.25,
+        "mean": 7.25,
+        "min": 6.0,
+        "max": 8.5,
+        "var": 3.125,
+        "std": 1.768,
+        "mad": 1.25,
+        "types of ticks": "I.Persulcatus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.091198,
+          59.998943
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0422\u0430\u0440\u0445\u043e\u0432\u0441\u043a\u0438\u0439 \u043b\u0435\u0441\u043e\u043f\u0430\u0440\u043a",
+        "median": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "var": NaN,
+        "std": NaN,
+        "mad": 0.0,
+        "types of ticks": "I.Persulcatus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.97084,
+          60.063417
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u042e\u043d\u0442\u043e\u043b\u043e\u0432\u043e - 1",
+        "median": 0.15,
+        "mean": 0.15,
+        "min": 0.0,
+        "max": 0.3,
+        "var": 0.045,
+        "std": 0.212,
+        "mad": 0.15,
+        "types of ticks": "I.Persulcatus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.207113,
+          60.021356
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "location": "\u0434\u0435\u0442\u0441\u0430\u0434 \u2116 80",
+        "median": 1.0,
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "var": NaN,
+        "std": NaN,
+        "mad": 0.0,
+        "types of ticks": "I.Ricinus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.615681,
+          60.196799
+        ]
+      }
+    }
+  ]
+}
