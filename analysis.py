@@ -8,6 +8,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import graphics
 
+param = ['median', 'mean', 'min', 'max', 'var', 'std', 'mad']
 
 # Фильтрация по подтипу
 def filter_type(df, type_k):
@@ -54,13 +55,12 @@ def corr_estimation(df, factor1, factor2, res):
 # Факторы: location - анализ по локациям, years - анализ по годам
 def descr_statistics(df, factor):
     assert factor in ['location', 'years'], 'Некорректно указан фактор анализа'
-    agg_func_math = {'Количество': ['median', 'mean', 'min', 'max', 'var', 'std', 'mad'], 'Подвиды': [pd.Series.mode]}
+    agg_func_math = {'Количество': param, 'Подвиды': [pd.Series.mode]}
     df['Подвиды'] = df['I.Persulcatus'] + df['I.Ricinus']
     if factor == 'location':
         res = df.groupby(['Название локации', 'Год']).agg(agg_func_math).round(3)
     else:
         res = df.groupby(['Год', 'Месяц', 'Номер месяца']).agg(agg_func_math).round(3)
-        # res = df.groupby(['Год']).agg(agg_func_math).round(3)
     res.rename(columns={'mean': 'Среднее знач.', 'median': 'Медиана', 'min': 'Мин. знач.', 'max': 'Макс. знач.',
                         'std': 'Станд. отклонение', 'var': 'Дисперсия', 'mad': 'Среднее абс. отклонение', 'mode': 'Подвиды'},
                inplace=True)
@@ -71,7 +71,7 @@ def descr_statistics(df, factor):
 
 # Вычисление параметров описательной статистики для каждого месяца, когда велось исследование
 def month_descr_statistics(df):
-    agg_func_math = {'Количество': ['median', 'mean', 'min', 'max', 'var', 'std', 'mad']}
+    agg_func_math = {'Количество': param}
     res = df.groupby(['Номер месяца', 'Месяц']).agg(agg_func_math).round(3)
     res.rename(columns={'mean': 'Среднее знач.', 'median': 'Медиана', 'min': 'Мин. знач.', 'max': 'Макс. знач.',
                         'std': 'Станд. отклонение', 'var': 'Дисперсия', 'mad': 'Среднее абс. отклонение'}, inplace=True)
@@ -85,7 +85,7 @@ def types_statistics(df):
         df_type = df[['Название локации', 'Год', 'Месяц', f'{type}', f'Имаго {type}', f'Нимфы {type}']]
         df_type = df_type.loc[df[type] == '+']
         df_type['Количество'] = df_type[f'Имаго {type}'] + df_type[f'Нимфы {type}']
-        df_type = df_type.groupby(['Год'])['Количество'].agg(['median', 'mean', 'min', 'max', 'var', 'std', 'mad']).round(3)
+        df_type = df_type.groupby(['Год'])['Количество'].agg(param).round(3)
         df_type.rename(columns={'mean': 'Среднее знач.', 'median': 'Медиана', 'min': 'Мин. знач.', 'max': 'Макс. знач.',
                         'std': 'Станд. отклонение', 'var': 'Дисперсия', 'mad': 'Среднее абс. отклонение'},
                        inplace=True)
@@ -94,8 +94,7 @@ def types_statistics(df):
 
 # Вычисление параметров описательной статистики для каждого типа леса
 def forest_type(df):
-    res = df.groupby(['Тип леса', 'Год', 'Номер месяца'])['Количество'].agg(['median', 'mean', 'min', 'max',
-                                                                             'var', 'std', 'mad']).round(3)
+    res = df.groupby(['Тип леса', 'Год', 'Номер месяца'])['Количество'].agg(param).round(3)
     res.rename(columns={'mean': 'Среднее знач.', 'median': 'Медиана', 'min': 'Мин. знач.', 'max': 'Макс. знач.',
                         'std': 'Станд. отклонение', 'var': 'Дисперсия', 'mad': 'Среднее абс. отклонение'},
                inplace=True)

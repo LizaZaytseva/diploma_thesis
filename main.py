@@ -56,7 +56,7 @@ def main():
     graphics.plot_forest_types()
     # Регрессионный анализ
     analysis.reg_analysis(loc_list)
-    plt.show()
+    # plt.show()
     # Генерация файлов в GeoJSON
     for i in range(2008, 2022):
         gen_geojson.df_to_geojson(df, i)
