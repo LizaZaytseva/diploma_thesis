@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from matplotlib import pyplot
 from matplotlib.ticker import LinearLocator, MultipleLocator
 
 param = ['Среднее знач.', 'Медиана', 'Мин. знач.', 'Макс. знач.', 'Станд. отклонение',
@@ -99,7 +100,7 @@ def plot_corr_matrix(df):
                        'Количество осадков, мм', 'Тип леса']]
     df_corr['Тип леса'] = [0 if x == 'Cмешанный лес' else 1 if x == 'Хвойный лес' else -1 if x == 'Лиственный лес'
                                 else 100 for x in df_corr['Тип леса']]
-    df_corr = df_corr.loc[df['Тип леса'] != 100]
+    df_corr = df_corr.loc[df_corr['Тип леса'] != 100]
     c_matrix = df_corr.corr()
     fig, ax = plt.subplots(figsize=(12, 10))
     fig.subplots_adjust(0.25, 0.25, 0.93, 0.93)
@@ -161,3 +162,14 @@ def plot_for_types():
         df_p.plot(ax=ax, x='Год', y=param[i], color=color[2], label='I.Persulcatus', title=param[i], marker='o')
         plt.tight_layout()
         plt.savefig(f'Results/Descr_statistics/stat_types_{param[i]}.png')
+
+
+#Линейная регрессия
+def plot_regression(X, y, arr, res_reg, location):
+    plt.clf()
+    plt.scatter(X, y)
+    plt.plot(arr, res_reg, color='red', linewidth=2)
+    plt.title(f'{location}')
+    plt.ylabel('Кол-во клещей на 1 флагочас')
+    pyplot.ylim([-1, max(y) + 2])
+    plt.savefig(f'Results/Regression/reg_analysis_{location}.png')
