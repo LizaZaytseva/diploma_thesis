@@ -158,6 +158,6 @@ def plot_for_types():
     for i in range(0, 7):
         ax = df_r.plot(x='Год', y=param[i], color=color[1], label='I.Ricinus', title=param[i], marker='x',
                        ylabel='Кол-во клещей на 1 флагочас', figsize=(10, 5))
-        df_p.plot(ax=ax, x='Год', y=param[i], color=color[2], label='I.Ricinus', title=param[i], marker='o')
+        df_p.plot(ax=ax, x='Год', y=param[i], color=color[2], label='I.Persulcatus', title=param[i], marker='o')
         plt.tight_layout()
         plt.savefig(f'Results/Descr_statistics/stat_types_{param[i]}.png')

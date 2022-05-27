@@ -17,6 +17,7 @@ def df_to_geojson(df, year, lat='Широта', lon='Долгота'):
     df_geo.rename(columns={'Название локации': 'location', 'Среднее знач.': 'mean', 'Медиана': 'median', 'Мин. знач.':
         'min', 'Макс. знач.': 'max', 'Станд. отклонение': 'std', 'Дисперсия': 'var', 'Среднее абс. отклонение': 'mad',
                            'Подвиды': 'types of ticks'}, inplace=True)
+    df_geo.fillna('Нет данных', inplace=True)
     geojson = {'type':'FeatureCollection', 'features':[]}
     for _, row in df_geo.iterrows():
         feature = {'type':'Feature',

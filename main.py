@@ -18,7 +18,7 @@ df = analysis.prep_df(s)
 
 # Создание списка локаций
 loc_list = analysis.location_list(s)
-
+print(loc_list)
 # Фильтрация по подтипу
 ric = analysis.filter_type(s, 'I.Ricinus')
 pers = analysis.filter_type(s, 'I.Persulcatus')
@@ -34,19 +34,19 @@ analysis.corr_estimation(pers, 'Нимфы I.Persulcatus', 'Количество
 analysis.corr_estimation(pers, 'Нимфы I.Persulcatus', 'Среднесуточная температура')
 
 # Описательная статистика
-analysis.descr_statistics(df, 'location', 1)
-analysis.descr_statistics(df, 'years', 1)
+analysis.descr_statistics(df, 'location')
+analysis.descr_statistics(df, 'years')
 analysis.month_descr_statistics(df)
 analysis.types_statistics(s)
 
-# Описательная статистика: графики
+#Описательная статистика: графики
 graphics.plot_for_years()
 graphics.plot_for_locations(loc_list)
 graphics.plot_for_months()
 graphics.plot_for_types()
-# graphics.plot_for_year(2021)
+graphics.plot_for_year(2021)
 
-# Вычисление среднего и медианы для каждого типа леса + отрисовка графиков
+#Вычисление среднего и медианы для каждого типа леса + отрисовка графиков
 analysis.forest_type(df)
 graphics.plot_forest_types()
 

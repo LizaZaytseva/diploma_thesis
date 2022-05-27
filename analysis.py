@@ -6,7 +6,6 @@ from matplotlib import pyplot
 from sklearn import metrics
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-
 import graphics
 
 
@@ -47,23 +46,10 @@ def corr_estimation(df, factor1, factor2):
 
 
 # Описательная статистика
-# Типы: 1 - Имаго и нимфы обоих подвидов, 2 - имаго и нимфы I.Ricinus, 3 - имаго и нимфы  I.Persulcatus,
-# 4 - имаго обоих подвидов, 5 - нимфы обоих подвидов
 # Факторы: location - анализ по локациям, years - анализ по годам
-def descr_statistics(df, factor, data_type):
+def descr_statistics(df, factor):
     agg_func_math = {'Количество': ['median', 'mean', 'min', 'max', 'var', 'std', 'mad'], 'Подвиды': [pd.Series.mode]}
     df['Подвиды'] = df['I.Persulcatus'] + df['I.Ricinus']
-    if data_type == 1:
-        df['Количество'] = df['Имаго I.Ricinus'] + df['Имаго I.Persulcatus'] + df['Нимфы I.Ricinus'] + df[
-            'Нимфы I.Persulcatus']
-    elif data_type == 2:
-        df['Количество'] = df['Имаго I.Ricinus'] + df['Нимфы I.Ricinus']
-    elif data_type == 3:
-        df['Количество'] = df['Имаго I.Persulcatus'] + df['Нимфы I.Persulcatus']
-    elif data_type == 4:
-        df['Количество'] = df['Имаго I.Ricinus'] + df['Имаго I.Persulcatus']
-    else:
-        df['Количество'] = + df['Нимфы I.Ricinus'] + df['Нимфы I.Persulcatus']
     if factor == 'location':
         res = df.groupby(['Название локации', 'Год']).agg(agg_func_math).round(3)
     else:
@@ -74,7 +60,7 @@ def descr_statistics(df, factor, data_type):
                inplace=True)
     if factor == 'years':
         res = res.drop(columns='Подвиды')
-    res.to_excel(f'Results/Descr_statistics/res_{factor}_{data_type}.xlsx')
+    res.to_excel(f'Results/Descr_statistics/res_{factor}_1.xlsx')
 
 
 # Вычисление параметров описательной статистики для каждого месяца, когда велось исследование
