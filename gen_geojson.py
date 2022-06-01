@@ -28,6 +28,6 @@ def df_to_geojson(df, year, lat='Широта', lon='Долгота'):
         for prop in properties:
             feature['properties'][prop] = row[prop]
         geojson['features'].append(feature)
-    output_filename = f'Results/Integration/{year}.json'
+    output_filename = f'Results/Integration/{year}.geojson'
     with open(output_filename, 'w') as output_file:
         json.dump(geojson, output_file, indent=2)
