@@ -2,14 +2,7 @@ import pandas as pd
 import analysis
 import gen_geojson
 import graphics
-
-
-def load_data():
-    try:
-        data = pd.read_excel('Files/data.xlsx', header=0)
-    except FileNotFoundError:
-        print('Проверьте название файла')
-    return data
+import loading
 
 
 def correlation(data_analysis, df_ric, df_pers):
@@ -30,8 +23,8 @@ def correlation(data_analysis, df_ric, df_pers):
     res_df.to_excel(f'Results/Correlation_results.xlsx')
 
 def main():
-    df = load_data()
-    assert df is not None, 'Пустой файл'
+    data = loading.LoadData('Files/data.xlsx')
+    df = data.load_data()
     data_analysis = analysis.Analysis(df)
     plots = graphics.Graphics()
     ric = data_analysis.filter_type('I.Ricinus')
