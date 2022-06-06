@@ -23,7 +23,7 @@ class Graphics(object):
         pd.DataFrame(np.array([xs, ys]).T).plot.scatter(0, 1, s=12, grid=True, color='g', marker='x')
         plt.xlabel(factor2)
         plt.ylabel(f'Кол-во {factor1} на 1 флагочас')
-        plt.title(f'Коэффициент корреляции Пирсона = {r},\n Оценка достоверности = {t}', fontsize=10)
+        plt.title(f'Коэффициент корреляции Пирсона = {r},\n Ошибка = {r / t}', fontsize=10)
         plt.savefig(f'Results/Correlation/cor_{factor1} - {factor2}.png')
 
     # Графики по локациям для описательной статистики
@@ -104,7 +104,7 @@ class Graphics(object):
         c_matrix = df_corr.corr()
         fig, ax = plt.subplots(figsize=(12, 10))
         fig.subplots_adjust(0.25, 0.25, 0.93, 0.93)
-        sns.heatmap(c_matrix, ax=ax, cmap="YlGnBu", linewidths=0.1)
+        sns.heatmap(c_matrix, ax=ax, cmap="YlGnBu", linewidths=0.1, annot=True)
         fig.savefig('Results/Correlation/corr_matrix.png')
 
     # Графики по локациям для описательной статистики

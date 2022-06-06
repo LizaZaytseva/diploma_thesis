@@ -2,8 +2,9 @@ import numpy as np
 import pandas as pd
 from sklearn import metrics
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
-
+from scipy import stats
 import graphics
 
 
@@ -40,11 +41,19 @@ class Analysis(object):
         factors = df.columns.values
         assert factor1 in factors and factor2 in factors, 'Некорректные факторы анализа'
         r = df[factor1].corr(df[factor2])
-        n = df.shape[0] - 2
-        t = r * np.sqrt(n / (1 - r ** 2))
+        n = df.shape[0]
+        if n > 100:
+            err = np.sqrt((1 - r ** 2) / n)
+        else:
+            err = np.sqrt((1 - r ** 2) / n - 2)
+        coef_t = r / err
+        alpha = 0.1
+        # Табличное (критическое) значение t-критерия
+        cv = stats.t.ppf(1 - alpha, n - 2)
         plot = graphics.Graphics()
-        plot.plot_corr(df, factor1, factor2, r, t)
-        new_row = {'factor 1': factor1, 'factor 2': factor2, 'corr. coef': round(r, 3), 'estimation': round(t, 3)}
+        plot.plot_corr(df, factor1, factor2, r, coef_t)
+        new_row = {'factor 1': factor1, 'factor 2': factor2, 'corr. coef': round(r, 3), 'estimation': round(err, 3),
+                   'coef. t': round(coef_t, 3), 'crit. t': round(cv, 3)}
         res[len(res)] = new_row
         return res
 
@@ -146,9 +155,15 @@ class Analysis(object):
             plot_pred = regressor.predict(arr.reshape(-1, 1))
             plot = graphics.Graphics()
             plot.plot_regression(X, y, arr, plot_pred, loc)
-            new_row = {'location': loc, 'a': regressor.intercept_, 'b': regressor.coef_[0], 'std':
-                round(metrics.mean_squared_error(y_test, y_pred), 3),
-                       'mad': round(metrics.mean_absolute_error(y_test, y_pred), 3)}
+            if regressor.coef_[0] > 0:
+                type_trend = 'возр.'
+            else:
+                type_trend = 'убыв.'
+            new_row = {'location': loc, 'a': round(regressor.intercept_, 3), 'b': round(regressor.coef_[0], 3),
+                       'trend': type_trend,
+                       'std': round(metrics.mean_squared_error(y_test, y_pred), 3),
+                       'mad': round(metrics.mean_absolute_error(y_test, y_pred), 3), 'R^2':
+                           round(r2_score(y_test, y_pred), 3)}
             res[index] = new_row
         df_res = (pd.DataFrame(res)).transpose()
         df_res.to_excel(f'Results/Regression_results.xlsx')
