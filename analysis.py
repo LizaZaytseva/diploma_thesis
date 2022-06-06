@@ -42,10 +42,11 @@ class Analysis(object):
         assert factor1 in factors and factor2 in factors, 'Некорректные факторы анализа'
         r = df[factor1].corr(df[factor2])
         n = df.shape[0]
+        assert n > 2, 'Невозможно применить формулы к данным'
         if n > 100:
             err = np.sqrt((1 - r ** 2) / n)
         else:
-            err = np.sqrt((1 - r ** 2) / n - 2)
+            err = np.sqrt((1 - r ** 2) / (n - 2))
         coef_t = r / err
         alpha = 0.1
         # Табличное (критическое) значение t-критерия
@@ -59,7 +60,7 @@ class Analysis(object):
 
     # Описательная статистика
     # Факторы: location - анализ по локациям, years - анализ по годам
-    def descr_statistics(self, factor):
+    def descr_statistics(self, factor, file):
         assert factor in ['location', 'years'], 'Некорректно указан фактор анализа'
         agg_func_math = {'Количество': self.param, 'Подвиды': [pd.Series.mode]}
         self.df['Подвиды'] = self.df['I.Persulcatus'] + self.df['I.Ricinus']
@@ -73,20 +74,21 @@ class Analysis(object):
                    inplace=True)
         if factor == 'years':
             res = res.drop(columns='Подвиды')
-        res.to_excel(f'Results/Descr_statistics/res_{factor}_1.xlsx')
+        res.to_excel(file)
 
     # Вычисление параметров описательной статистики для каждого месяца, когда велось исследование
-    def month_descr_statistics(self):
+    def month_descr_statistics(self, file):
         agg_func_math = {'Количество': self.param}
         res = self.df.groupby(['Номер месяца', 'Месяц']).agg(agg_func_math).round(3)
         res.rename(columns={'mean': 'Среднее знач.', 'median': 'Медиана', 'min': 'Мин. знач.', 'max': 'Макс. знач.',
                             'std': 'Станд. отклонение', 'var': 'Дисперсия', 'mad': 'Среднее абс. отклонение'},
                    inplace=True)
-        res.to_excel(f'Results/Descr_statistics/month_stat.xlsx')
+        res.to_excel(file)
 
     # Вычисление параметров описательной статистики для каждого вида клещей
-    def types_statistics(self):
+    def types_statistics(self, file1, file2):
         types = ['I.Ricinus', 'I.Persulcatus']
+        files = [file1, file2]
         for type in types:
             df_type = self.df[['Название локации', 'Год', 'Месяц', f'{type}', f'Имаго {type}', f'Нимфы {type}']]
             df_type = df_type.loc[self.df[type] == '+']
@@ -96,15 +98,15 @@ class Analysis(object):
                 columns={'mean': 'Среднее знач.', 'median': 'Медиана', 'min': 'Мин. знач.', 'max': 'Макс. знач.',
                          'std': 'Станд. отклонение', 'var': 'Дисперсия', 'mad': 'Среднее абс. отклонение'},
                 inplace=True)
-            df_type.to_excel(f'Results/Descr_statistics/{type}.xlsx')
+            df_type.to_excel(files[types.index(type)])
 
     # Вычисление параметров описательной статистики для каждого типа леса
-    def forest_type(self):
+    def forest_type(self, file):
         res = self.df.groupby(['Тип леса', 'Год', 'Номер месяца'])['Количество'].agg(self.param).round(3)
         res.rename(columns={'mean': 'Среднее знач.', 'median': 'Медиана', 'min': 'Мин. знач.', 'max': 'Макс. знач.',
                             'std': 'Станд. отклонение', 'var': 'Дисперсия', 'mad': 'Среднее абс. отклонение'},
                    inplace=True)
-        res.to_excel('Results/Descr_statistics/forest_types.xlsx')
+        res.to_excel(file)
 
     # Множественная линейная регрессия
     def multi_reg_analysis(self, location):

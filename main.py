@@ -33,11 +33,12 @@ def main():
     correlation(data_analysis, ric, pers)
     plots.plot_corr_matrix(df)
     # Описательная статистика
-    data_analysis.descr_statistics('location')
-    data_analysis.descr_statistics('years')
-    data_analysis.month_descr_statistics()
-    data_analysis.types_statistics()
-    data_analysis.forest_type()
+    data_analysis.descr_statistics('location', 'Results/Descr_statistics/res_location.xlsx')
+    data_analysis.descr_statistics('years', f'Results/Descr_statistics/res_years.xlsx')
+    data_analysis.month_descr_statistics('Results/Descr_statistics/month_stat.xlsx')
+    data_analysis.types_statistics('Results/Descr_statistics/I.Persulcatus.xlsx',
+                                   'Results/Descr_statistics/I.Persulcatus.xlsx')
+    data_analysis.forest_type('Results/Descr_statistics/forest_types.xlsx')
     plots.plot_for_years()
     plots.plot_for_locations(data_analysis.loc_list)
     plots.plot_for_months()
