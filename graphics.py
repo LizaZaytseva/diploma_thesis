@@ -28,7 +28,7 @@ class Graphics(object):
 
     # Графики по локациям для описательной статистики
     def plot_for_locations(self, loc_list):
-        df = pd.read_excel('Results/Descr_statistics/res_location_1.xlsx', header=1)
+        df = pd.read_excel('Results/Descr_statistics/res_location.xlsx', header=1)
         df.rename(columns={'Unnamed: 0': 'Название локации', 'Unnamed: 1': 'Год'}, inplace=True)
         df.drop(labels=[0], axis=0, inplace=True)
         df['Название локации'].fillna(method='pad', inplace=True)
@@ -53,7 +53,7 @@ class Graphics(object):
 
     # Графики по годам для описательной статистики
     def plot_for_years(self):
-        df = pd.read_excel('Results/Descr_statistics/res_years_1.xlsx', header=1)
+        df = pd.read_excel('Results/Descr_statistics/res_years.xlsx', header=1)
         df.rename(columns={'Unnamed: 0': 'Год', 'Unnamed: 1': 'Месяц', 'Unnamed: 2': 'Номер месяца'}, inplace=True)
         df.drop(labels=[0], axis=0, inplace=True)
         df['Год'].fillna(method='pad', inplace=True)
@@ -125,7 +125,7 @@ class Graphics(object):
 
     # Графики по годам для описательной статистики
     def plot_for_year(self, year):
-        df = pd.read_excel('Results/Descr_statistics/res_years_1.xlsx', header=1)
+        df = pd.read_excel('Results/Descr_statistics/res_years.xlsx', header=1)
         df.rename(columns={'Unnamed: 0': 'Год', 'Unnamed: 1': 'Месяц', 'Unnamed: 2': 'Номер месяца'}, inplace=True)
         df.drop(labels=[0], axis=0, inplace=True)
         df['Год'].fillna(method='pad', inplace=True)

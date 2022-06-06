@@ -47,12 +47,9 @@ class Analysis(object):
             err = np.sqrt((1 - r ** 2) / n)
         else:
             err = np.sqrt((1 - r ** 2) / (n - 2))
-        coef_t = r / err
-        alpha = 0.1
-        # Табличное (критическое) значение t-критерия
-        cv = stats.t.ppf(1 - alpha, n - 2)
+        coef_t = abs(r) / err
         new_row = {'factor 1': factor1, 'factor 2': factor2, 'corr. coef': round(r, 3), 'estimation': round(err, 3),
-                   'coef. t': round(coef_t, 3), 'crit. t': round(cv, 3)}
+                   'coef. t': round(coef_t, 3), 'crit. t': round(1.9667650, 3)}
         res[len(res)] = new_row
         return res
 

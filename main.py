@@ -53,7 +53,7 @@ def main():
     plots.plot_for_year(2021)
     plots.plot_forest_types()
     # Регрессионный анализ
-    data_analysis.reg_analysis(True, 'Results/Descr_statistics/res_location_1.xlsx', 'Results/Regression_results.xlsx')
+    data_analysis.reg_analysis(True, 'Results/Descr_statistics/res_location.xlsx', 'Results/Regression_results.xlsx')
     # Генерация файлов в GeoJSON
     for i in range(2008, 2022):
         gen_geojson.df_to_geojson(df, i)
