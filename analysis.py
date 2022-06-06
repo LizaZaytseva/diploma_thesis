@@ -51,8 +51,6 @@ class Analysis(object):
         alpha = 0.1
         # Табличное (критическое) значение t-критерия
         cv = stats.t.ppf(1 - alpha, n - 2)
-        plot = graphics.Graphics()
-        plot.plot_corr(df, factor1, factor2, r, coef_t)
         new_row = {'factor 1': factor1, 'factor 2': factor2, 'corr. coef': round(r, 3), 'estimation': round(err, 3),
                    'coef. t': round(coef_t, 3), 'crit. t': round(cv, 3)}
         res[len(res)] = new_row
@@ -134,8 +132,8 @@ class Analysis(object):
         print('Значение среднеквадратичной ошибки:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
 
     # Линейная регрессия
-    def reg_analysis(self):
-        df_r = pd.read_excel('Results/Descr_statistics/res_location_1.xlsx', header=1)
+    def reg_analysis(self, with_plot, file_in, file_out):
+        df_r = pd.read_excel(file_in, header=1)
         df_r.rename(columns={'Unnamed: 0': 'Название локации', 'Unnamed: 1': 'Год'}, inplace=True)
         df_r = df_r[['Название локации', 'Год', 'Медиана', 'Среднее знач.']]
         df_r['Название локации'].fillna(method='pad', inplace=True)
@@ -154,9 +152,10 @@ class Analysis(object):
             regressor.fit(X_train, y_train)
             y_pred = regressor.predict(X_test)
             arr = np.arange(2008, 2025)
-            plot_pred = regressor.predict(arr.reshape(-1, 1))
-            plot = graphics.Graphics()
-            plot.plot_regression(X, y, arr, plot_pred, loc)
+            if with_plot:
+                plot_pred = regressor.predict(arr.reshape(-1, 1))
+                plot = graphics.Graphics()
+                plot.plot_regression(X, y, arr, plot_pred, loc)
             if regressor.coef_[0] > 0:
                 type_trend = 'возр.'
             else:
@@ -168,4 +167,4 @@ class Analysis(object):
                            round(r2_score(y_test, y_pred), 3)}
             res[index] = new_row
         df_res = (pd.DataFrame(res)).transpose()
-        df_res.to_excel(f'Results/Regression_results.xlsx')
+        df_res.to_excel(file_out)

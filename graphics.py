@@ -23,7 +23,7 @@ class Graphics(object):
         pd.DataFrame(np.array([xs, ys]).T).plot.scatter(0, 1, s=12, grid=True, color='g', marker='x')
         plt.xlabel(factor2)
         plt.ylabel(f'Кол-во {factor1} на 1 флагочас')
-        plt.title(f'Коэффициент корреляции Пирсона = {r},\n Ошибка = {r / t}', fontsize=10)
+        plt.title(f'Коэффициент корреляции Пирсона = {r},\n Ошибка = {round(r / t, 3)}', fontsize=10)
         plt.savefig(f'Results/Correlation/cor_{factor1} - {factor2}.png')
 
     # Графики по локациям для описательной статистики
