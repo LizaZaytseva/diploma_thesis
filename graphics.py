@@ -98,8 +98,8 @@ class Graphics(object):
         df_corr = df_corr[['Год', 'Имаго I.Persulcatus', 'Нимфы I.Persulcatus', 'Имаго I.Ricinus',
                            'Нимфы I.Ricinus', 'Среднесуточная температура', 'Температура на 1 м. раньше',
                            'Количество осадков, мм', 'Тип леса']]
-        df_corr['Тип леса'] = [0 if x == 'Cмешанный лес' else 1 if x == 'Хвойный лес' else -1 if x == 'Лиственный лес'
-        else 100 for x in df_corr['Тип леса']]
+        df_corr['Тип леса'] = [0 if x == 'Cмешанный лес' else 100 if x == 'Хвойный лес' else -100 if x == 'Лиственный лес'
+        else 1000 for x in df_corr['Тип леса']]
         df_corr = df_corr.loc[df_corr['Тип леса'] != 100]
         c_matrix = df_corr.corr()
         fig, ax = plt.subplots(figsize=(12, 10))

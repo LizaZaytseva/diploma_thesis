@@ -4,8 +4,7 @@ from sklearn import metrics
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
-from scipy import stats
-import graphics
+
 
 
 def prep_df(df):
@@ -24,7 +23,7 @@ class Analysis(object):
     def __init__(self, df):
         self.param = ['median', 'mean', 'min', 'max', 'var', 'std', 'mad']
         self.df = prep_df(df)
-        self.loc_list = set(df['Название локации'].tolist())
+        self.loc_list = sorted(set(df['Название локации'].tolist()))
 
     # Фильтрация по подтипу
     def filter_type(self, type_k):
@@ -48,7 +47,7 @@ class Analysis(object):
         else:
             err = np.sqrt((1 - r ** 2) / (n - 2))
         coef_t = abs(r) / err
-        new_row = {'factor 1': factor1, 'factor 2': factor2, 'corr. coef': round(r, 3), 'estimation': round(err, 3),
+        new_row = {'factor 1': factor1, 'factor 2': factor2, 'corr. coef': round(r, 3), 'err': round(err, 3),
                    'coef. t': round(coef_t, 3), 'crit. t': round(1.9667650, 3)}
         res[len(res)] = new_row
         return res
@@ -97,39 +96,40 @@ class Analysis(object):
 
     # Вычисление параметров описательной статистики для каждого типа леса
     def forest_type(self, file):
-        res = self.df.groupby(['Тип леса', 'Год', 'Номер месяца'])['Количество'].agg(self.param).round(3)
+        # res = self.df.groupby(['Тип леса', 'Год', 'Номер месяца'])['Количество'].agg(self.param).round(3)
+        res = self.df.groupby(['Тип леса', 'Год'])['Количество'].agg(self.param).round(3)
         res.rename(columns={'mean': 'Среднее знач.', 'median': 'Медиана', 'min': 'Мин. знач.', 'max': 'Макс. знач.',
                             'std': 'Станд. отклонение', 'var': 'Дисперсия', 'mad': 'Среднее абс. отклонение'},
                    inplace=True)
         res.to_excel(file)
 
     # Множественная линейная регрессия
-    def multi_reg_analysis(self, location):
-        df_reg = self.df[
-            ['Название локации', 'Год', 'Месяц', 'Имаго I.Persulcatus', 'Нимфы I.Persulcatus', 'Имаго I.Ricinus',
-             'Нимфы I.Ricinus', 'Среднесуточная температура', 'Количество осадков, мм']]
-        df_w = pd.read_excel('weather.xlsx', header=0).drop(columns=['Среднесуточная температура', 'Количество осадков, мм'])
-        df_reg = pd.merge(df_reg, df_w, how='left', on=['Год', 'Месяц'])
-        df_reg = df_reg.loc[self.df['Название локации'] == location]
-        df_reg = df_reg.reset_index(drop=True)
-        X = df_reg[
-            ['Год', 'Номер месяца', 'Среднесуточная температура', 'Количество осадков, мм',
-             'Температура на 1 м. раньше']]
-        y = df_reg['Количество']
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, train_size=0.8, random_state=0)
-        regressor = LinearRegression()
-        regressor.fit(X_train, y_train)
-        coeff_df = pd.DataFrame(regressor.coef_, X.columns, columns=['Coefficient'])
-        y_pred = regressor.predict(X_test)
-        df_res = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
-        coeff_df.to_excel(f'Results/coeff_df_{location}.xlsx')
-        df_res.to_excel(f'Results/df_res_{location}.xlsx')
-        print('Среднее абсолютное отклонение:', metrics.mean_absolute_error(y_test, y_pred))
-        print('Среднее квадратичное отклонение:', metrics.mean_squared_error(y_test, y_pred))
-        print('Значение среднеквадратичной ошибки:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+    # def multi_reg_analysis(self, location):
+    #     df_reg = self.df[
+    #         ['Название локации', 'Год', 'Месяц', 'Имаго I.Persulcatus', 'Нимфы I.Persulcatus', 'Имаго I.Ricinus',
+    #          'Нимфы I.Ricinus', 'Среднесуточная температура', 'Количество осадков, мм']]
+    #     df_w = pd.read_excel('weather.xlsx', header=0).drop(columns=['Среднесуточная температура', 'Количество осадков, мм'])
+    #     df_reg = pd.merge(df_reg, df_w, how='left', on=['Год', 'Месяц'])
+    #     df_reg = df_reg.loc[self.df['Название локации'] == location]
+    #     df_reg = df_reg.reset_index(drop=True)
+    #     X = df_reg[
+    #         ['Год', 'Номер месяца', 'Среднесуточная температура', 'Количество осадков, мм',
+    #          'Температура на 1 м. раньше']]
+    #     y = df_reg['Количество']
+    #     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, train_size=0.8, random_state=0)
+    #     regressor = LinearRegression()
+    #     regressor.fit(X_train, y_train)
+    #     coeff_df = pd.DataFrame(regressor.coef_, X.columns, columns=['Coefficient'])
+    #     y_pred = regressor.predict(X_test)
+    #     df_res = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+    #     coeff_df.to_excel(f'Results/coeff_df_{location}.xlsx')
+    #     df_res.to_excel(f'Results/df_res_{location}.xlsx')
+    #     print('Среднее абсолютное отклонение:', metrics.mean_absolute_error(y_test, y_pred))
+    #     print('Среднее квадратичное отклонение:', metrics.mean_squared_error(y_test, y_pred))
+    #     print('Значение среднеквадратичной ошибки:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
 
     # Линейная регрессия
-    def reg_analysis(self, with_plot, file_in, file_out):
+    def reg_analysis(self, with_plot, file_in, file_out, plot):
         df_r = pd.read_excel(file_in, header=1)
         df_r.rename(columns={'Unnamed: 0': 'Название локации', 'Unnamed: 1': 'Год'}, inplace=True)
         df_r = df_r[['Название локации', 'Год', 'Медиана', 'Среднее знач.']]
@@ -138,6 +138,8 @@ class Analysis(object):
         for loc in self.loc_list:
             index = list(self.loc_list).index(loc)
             df_loc = df_r.loc[df_r['Название локации'] == loc]
+            reg_corr = (df_loc['Год'].astype(float)).corr(df_loc['Среднее знач.'])
+            coef_f = ((reg_corr * reg_corr)/(1 - reg_corr * reg_corr)) * (df_loc.shape[0] - 2)
             X = df_loc.iloc[:, 1].values
             X = X.reshape(-1, 1)
             y = df_loc.iloc[:, 3].values
@@ -151,7 +153,6 @@ class Analysis(object):
             arr = np.arange(2008, 2025)
             if with_plot:
                 plot_pred = regressor.predict(arr.reshape(-1, 1))
-                plot = graphics.Graphics()
                 plot.plot_regression(X, y, arr, plot_pred, loc)
             if regressor.coef_[0] > 0:
                 type_trend = 'возр.'
@@ -161,7 +162,9 @@ class Analysis(object):
                        'trend': type_trend,
                        'std': round(metrics.mean_squared_error(y_test, y_pred), 3),
                        'mad': round(metrics.mean_absolute_error(y_test, y_pred), 3), 'R^2':
-                           round(r2_score(y_test, y_pred), 3)}
+                           round(r2_score(y_test, y_pred), 3),
+                       'coef. F': round(coef_f, 3),
+                       'n': df_loc.shape[0]}
             res[index] = new_row
         df_res = (pd.DataFrame(res)).transpose()
         df_res.to_excel(file_out)
