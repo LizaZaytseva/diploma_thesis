@@ -96,8 +96,7 @@ class Analysis(object):
 
     # Вычисление параметров описательной статистики для каждого типа леса
     def forest_type(self, file):
-        # res = self.df.groupby(['Тип леса', 'Год', 'Номер месяца'])['Количество'].agg(self.param).round(3)
-        res = self.df.groupby(['Тип леса', 'Год'])['Количество'].agg(self.param).round(3)
+        res = self.df.groupby(['Тип леса', 'Год', 'Номер месяца'])['Количество'].agg(self.param).round(3)
         res.rename(columns={'mean': 'Среднее знач.', 'median': 'Медиана', 'min': 'Мин. знач.', 'max': 'Макс. знач.',
                             'std': 'Станд. отклонение', 'var': 'Дисперсия', 'mad': 'Среднее абс. отклонение'},
                    inplace=True)
